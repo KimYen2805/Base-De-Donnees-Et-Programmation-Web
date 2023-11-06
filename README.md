@@ -3,7 +3,7 @@
 ## Liens importants
 
 - [Sujet du projet](https://perso.liris.cnrs.fr/fabien.duchateau/ens/BDW/projet/projet.pdf)
-- [Visualier le site](https://bdw.univ-lyon1.fr/p1234567/)
+- [Visualier le site](https://bdw.univ-lyon1.fr/p2309122/)
 - [phpMyAdmin](https://bdw.univ-lyon1.fr/phpmyadmin/)
 
 
@@ -11,7 +11,7 @@
 
 ```
 Hôte : sftp://bdw.univ-lyon1.fr
-Identifiant : p1234567
+Identifiant : p2309122
 Mot de passe : *********
 Port : 22
 ```
