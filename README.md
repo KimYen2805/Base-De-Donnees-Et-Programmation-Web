@@ -3,6 +3,7 @@
 ## Liens importants
 
 - [Sujet du projet](https://perso.liris.cnrs.fr/fabien.duchateau/ens/BDW/projet/projet.pdf)
+- [Visualier le site](https://bdw.univ-lyon1.fr/p1234567/)
 - [phpMyAdmin](https://bdw.univ-lyon1.fr/phpmyadmin/)
 
 
