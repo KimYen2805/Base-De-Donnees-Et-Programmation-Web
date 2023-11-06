@@ -1,12 +1,12 @@
 # Projet BDW
 
-## [ ] Liens importants
+## Liens importants
 
 - [Sujet du projet](https://perso.liris.cnrs.fr/fabien.duchateau/ens/BDW/projet/projet.pdf)
 - [phpMyAdmin](https://bdw.univ-lyon1.fr/phpmyadmin/)
 
 
-## [ ] Connexion via FileZilla aux fichiers distants
+## Connexion via FileZilla aux fichiers distants
 
 ```
 Hôte : sftp://bdw.univ-lyon1.fr
@@ -16,7 +16,7 @@ Port : 22
 ```
 
 
-## [ ] Ajouter des fichiers en ligne de commande
+## Ajouter des fichiers en ligne de commande
 
 ```
 cd nom_dossier
