@@ -17,11 +17,16 @@ Port : 22
 ```
 
 
-## Ajouter des fichiers en ligne de commande
+## Cloner le projet git
 
 ```
-cd nom_dossier
-git remote add origin https://forge.univ-lyon1.fr/p2309122/projet-bdw.git
-git branch -M main
-git push -uf origin main
+git clone https://forge.univ-lyon1.fr/p2309122/projet-bdw.git
+```
+
+## Transférer les nouveaux fichiers sur GitLab
+
+```
+git add .
+git commit -m "texte"
+git push origin main
 ```
