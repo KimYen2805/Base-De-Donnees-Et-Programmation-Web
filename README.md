@@ -30,3 +30,9 @@ git add .
 git commit -m "texte"
 git push origin main
 ```
+
+## Récuperer la dernière version publiée
+
+```
+git pull
+```
