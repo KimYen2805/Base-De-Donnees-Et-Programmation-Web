@@ -31,7 +31,7 @@ git commit -m "texte"
 git push origin main
 ```
 
-## Récuperer la dernière version publiée
+## Récupérer la dernière version publiée
 
 ```
 git pull
