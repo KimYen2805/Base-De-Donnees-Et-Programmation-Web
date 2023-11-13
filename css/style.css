@@ -1,0 +1,77 @@
+body {
+    background-color: white;
+    /* margin: 0;
+    padding: 0; */
+}
+
+/* header, nav, main, footer {
+    padding: 1em 0;
+} */
+
+#logo {
+    border: 1px solid yellow;
+    height: 100%;
+    width: auto;
+    float: left;
+}
+
+header {
+    border: 1px solid red;
+    /* background-color: #FF9900; */
+    text-align: center;
+    height: 10vh; 
+}
+
+#divCentral {
+    /* display: flex; */
+	justify-content: space-between;
+	align-items: stretch;
+    margin: auto;
+	box-sizing: border-box;
+	height: 100%;
+}
+
+nav {
+    border: 1px solid blue;
+	/* flex : 2;
+    background-color: #b59ff7;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+	margin-left: 2em;
+    line-height: 2em; */
+}
+
+nav > ul {
+	padding-left: 0.5em;
+}
+
+/* TODO : centrer les boutons */
+
+nav a {
+    color: #0000FF;
+    /* text-decoration: underline; */
+    display: inline-block;
+}
+
+nav a:visited {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+main {
+    border: 1px solid green;
+	/* flex : 10; */
+    background-color: #FFFFFF;
+    padding-left: 3em;
+}
+
+footer {
+    border: 1px solid black;
+	/* display: flex; */
+	justify-content: space-around;
+    /* background-color: #669933; */
+}
+
+.fond-jaune {
+	background-color: yellow;
+}
