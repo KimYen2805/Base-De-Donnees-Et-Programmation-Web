@@ -72,6 +72,25 @@ footer {
     /* background-color: #669933; */
 }
 
-.fond-jaune {
+.fond-jaune { /*TODO : voir ce que c'est */
 	background-color: yellow;
 }
+
+.tableau 
+{
+    border: 1px solid green;
+    overflow: auto;
+    height: auto;
+    max-height: 30vh;
+    display: inline-block;
+}
+
+table {
+    border: 1px solid black;
+}
+
+td {
+    border: 1px solid black;
+    margin: 0;
+}
+
