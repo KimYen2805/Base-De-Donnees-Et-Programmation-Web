@@ -1,4 +1,3 @@
-
 CREATE TABLE Lieu(
    idLieu INT,
    nom VARCHAR(50),
@@ -72,16 +71,16 @@ INSERT INTO Citoyen VALUES
 ('Moreau', 'Julie', '12 Rue de la Joie, 75005 Paris', 'julie.moreau@example.com', '1995-06-30', '5678901234');
 CREATE TABLE Service(
    libellé VARCHAR(50),
-   description VARCHAR(50),
+   description VARCHAR(200),
    PRIMARY KEY(libellé)
 )DEFAULT CHARSET=utf8;
 INSERT INTO Service (libellé, description) VALUES
-('Service 1', 'Etat civil '),
-('Service 2', 'Elections'),
-('Service 3', 'Signalement'),
-('Service 4', 'Union civile'),
-('Service 5', 'Scolaire'), 
-('Service 6', 'Restauration');
+('État civil', 'Le service d\'état civil est responsable de l\'enregistrement et de la gestion des événements civils tels que les naissances, mariages, décès, délivrant des certificats et actes officiels associés.'),
+('Élections', 'Le service élections assure la gestion des processus électoraux, enregistrant les votants, organisant les scrutins et garantissant le respect des procédures démocratiques.'),
+('Signalement', 'Le service de signalement gère la réception et le traitement des signalements concernant diverses situations problématiques ou infractions dans une communauté donnée.'),
+('Union civile', 'Le service union civile supervise les procédures légales entourant les mariages civils, PACS (Pacte civil de solidarité) et autres formes d\'engagements légaux entre partenaires.'),
+('Scolaire', 'Le service scolaire gère les activités éducatives, le suivi des élèves, et coordonne les programmes pédagogiques au sein des établissements d'enseignement.'), 
+('Restauration', 'Le service restauration fournit des repas et gère les aspects logistiques liés à la nourriture dans des contextes éducatifs ou institutionnels.');
 CREATE TABLE Demande(
    idDemande INT,
    dateDemande DATE,
