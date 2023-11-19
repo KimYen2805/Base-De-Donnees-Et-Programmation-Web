@@ -1,4 +1,3 @@
-
 INSERT IGNORE  INTO Commune (idCommune, codePostal, nom, coordonnées, codeINSEE_3, adresseMairie, codeINSEE_2)
 SELECT 
 code_commune AS idCommune,
