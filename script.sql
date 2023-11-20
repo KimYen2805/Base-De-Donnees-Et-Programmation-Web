@@ -1,3 +1,4 @@
+
 CREATE TABLE Lieu(
    idLieu INT,
    nom VARCHAR(50),
@@ -71,16 +72,20 @@ INSERT INTO Citoyen VALUES
 ('Moreau', 'Julie', '12 Rue de la Joie, 75005 Paris', 'julie.moreau@example.com', '1995-06-30', '5678901234');
 CREATE TABLE Service(
    libellé VARCHAR(50),
-   description VARCHAR(50),
+   description VARCHAR(500),
    PRIMARY KEY(libellé)
 )DEFAULT CHARSET=utf8;
 INSERT INTO Service (libellé, description) VALUES
-('Service 1', 'Etat civil '),
-('Service 2', 'Elections'),
-('Service 3', 'Signalement'),
-('Service 4', 'Union civile'),
-('Service 5', 'Scolaire'), 
-('Service 6', 'Restauration');
+('Etat civil', 'L\'état civil est la situation de la personne dans la famille et la société,
+ résultat d\'une procédure écrite d\'identification administrative '),
+('Elections', 'Le service élections procède aux inscriptions sur les 
+listes électorales et assure toutes les opérations liées aux élections.'),
+('Signalement', 'Le signalement est un écrit objectif décrivant la situation d\un mineur en danger 
+ou en risque de danger nécessitant une mesure de protection administrative ou judiciaire'),
+('Union civile', 'L\'union civile est un acte solennel par lequel deux personnes expriment publiquement leur
+ consentement libre et éclairé à faire vie commune et à respecter les droits et obligations liés à cet état civil'),
+('Scolaire', 'La mission du service scolaire est de favoriser et d\'améliorer la scolarisation des enfants de 3 à 11 ans.'), 
+('Restauration', 'Le service en restauration est le fait de servir les plats aux convives');
 CREATE TABLE Demande(
    idDemande INT,
    dateDemande DATE,
@@ -95,16 +100,16 @@ CREATE TABLE Demande(
    FOREIGN KEY (libellé) REFERENCES Service(libellé)
 )DEFAULT CHARSET=utf8;
 INSERT INTO Demande  VALUES
-(1, '2023-11-09', 'Demande 1', 'Auteur 1', 'Justificatif 1', 'Dupont', 'Jean', 'Service 6'),
-(2, '2023-11-08', 'Demande 2', 'Auteur 2', 'Justificatif 2', 'Bernard', 'Jean', 'Service 6'),
-(3, '2023-11-07', 'Demande 3', 'Auteur 3', 'Justificatif 3', 'Dubois', 'Pierre', 'Service 5'),
-(4, '2023-11-06', 'Demande 4', 'Auteur 4', 'Justificatif 4', 'Lambert', 'Anne', 'Service 5'),
-(5, '2023-11-06', 'Demande 5', 'Auteur 5', 'Justificatif 5', 'Lambert', 'Anne', 'Service 2'),
-(6, '2023-11-06', 'Demande 6', 'Auteur 6', 'Justificatif 6', 'Lambert', 'Anne', 'Service 1'),
-(7, '2023-11-06', 'Demande 7', 'Auteur 7', 'Justificatif 7', 'Lambert', 'Anne', 'Service 5'),
-(8, '2023-11-06', 'Demande 8', 'Auteur 8', 'Justificatif 8', 'Lambert', 'Anne', 'Service 3'),
-(9, '2023-11-06', 'Demande 9', 'Auteur 9', 'Justificatif 9', 'Lambert', 'Anne', 'Service 5'),
-(10, '2023-11-05', 'Demande 10', 'Auteur 10', 'Justificatif 10', 'Martin', 'Marie', 'Service 1');
+(1, '2023-11-09', 'Demande 1', 'Auteur 1', 'Justificatif 1', 'Dupont', 'Jean', 'Restauration'),
+(2, '2023-11-08', 'Demande 2', 'Auteur 2', 'Justificatif 2', 'Bernard', 'Jean', 'Restauration'),
+(3, '2023-11-07', 'Demande 3', 'Auteur 3', 'Justificatif 3', 'Dubois', 'Pierre', 'Scolaire'),
+(4, '2023-11-06', 'Demande 4', 'Auteur 4', 'Justificatif 4', 'Lambert', 'Anne', 'Scolaire'),
+(5, '2023-11-06', 'Demande 5', 'Auteur 5', 'Justificatif 5', 'Lambert', 'Anne', 'Elections'),
+(6, '2023-11-06', 'Demande 6', 'Auteur 6', 'Justificatif 6', 'Lambert', 'Anne', 'Etat civil'),
+(7, '2023-11-06', 'Demande 7', 'Auteur 7', 'Justificatif 7', 'Lambert', 'Anne', 'Scolaire'),
+(8, '2023-11-06', 'Demande 8', 'Auteur 8', 'Justificatif 8', 'Lambert', 'Anne', 'Signalement'),
+(9, '2023-11-06', 'Demande 9', 'Auteur 9', 'Justificatif 9', 'Lambert', 'Anne', 'Scolaire'),
+(10, '2023-11-05', 'Demande 10', 'Auteur 10', 'Justificatif 10', 'Martin', 'Marie', 'Etat civil');
 
 CREATE TABLE Effectuer(
    idDemande INT,
@@ -203,15 +208,16 @@ CREATE TABLE Département(
    PRIMARY KEY(codeINSEE_2),
    FOREIGN KEY(codeINSEE_1) REFERENCES Région(codeINSEE_1)
 )DEFAULT CHARSET=utf8;
-INSERT INTO Département VALUES (75, 'Paris', 75),
+INSERT INTO Département VALUES 
+(75, 'Paris', 75),
 (31, 'Haute-Garonne', 76),
-(69, 'Auvergne-Rhône-Alpes', 84),
+(69, 'Rhône', 84),
 (06, 'Alpes-Maritimes', 93), 
 (44,'Loire-Atlantique', 52),
 (52, 'Haute-Marne',44), 
 (76,'Seine-Maritime', 28);
 CREATE TABLE Commune(
-   idCommune INT,
+   idCommune INT AUTO_INCREMENT ,
    codePostal INT,
    nom VARCHAR(50),
    coordonnées TEXT(100),
@@ -230,37 +236,36 @@ INSERT INTO Commune VALUES (1, 75002, 'Paris 2er Arrondissement', '48.8566, 2.35
 (7, 31002, 'Toulouse 2er Arrondissement', '43.604652, 1.444209', 31555, 'Place du Capitole, 31000 Toulouse', 31),
 (8, 69001, 'Lyon 1er Arrondissement', '45.767, 4.834', 69381, 'Place de la Comédie, 69001 Lyon', 69),
 (9, 31003, 'Toulouse 3er Arrondissement', '43.7031, 7.2661', 31003, '5 Rue de l\'Hôtel de ville, 31003 Toulouse', 31),
-(10, 44000, 'Nantes', '47.2181, -1.5528', 44109, '2 Rue de l\'Hôtel de ville, 44094 Nantes', 52),
-(11, 75006, 'Paris 6er Arrondissement', '43.2964, 5.3698', 75006, 'Hôtel de Ville, 75006', 75),
-(12, 33000, 'Bordeaux', '44.8378, -0.5792', 33063, 'Place Pey Berland, 33000 Bordeaux', 75),
-(13, 34000, 'Montpellier', '43.6108, 3.8767', 34172, '1 Place Georges Frêche, 34267 Montpellier', 76),
-(14, 69002, 'Lyon 2e Arrondissement', '45.7513 , 4.8328', 69382, 'Place Bellecour, 69002 Lyon', 69),
-(15, 69003, 'Lyon 3e Arrondissement', '45.7637, 4.8511', 69383, '215 Rue Duguesclin, 69003 Lyon', 69);
+(10, 75006, 'Paris 6er Arrondissement', '43.2964, 5.3698', 75006, 'Hôtel de Ville, 75006', 75),
+(11, 33000, 'Bordeaux', '44.8378, -0.5792', 33063, 'Place Pey Berland, 33000 Bordeaux', 75),
+(12, 34000, 'Montpellier', '43.6108, 3.8767', 34172, '1 Place Georges Frêche, 34267 Montpellier', 76),
+(13, 69002, 'Lyon 2e Arrondissement', '45.7513 , 4.8328', 69382, 'Place Bellecour, 69002 Lyon', 69),
+(14, 69003, 'Lyon 3e Arrondissement', '45.7637, 4.8511', 69383, '215 Rue Duguesclin, 69003 Lyon', 69);
 CREATE TABLE Proposer(
    idCommune INT,
    libellé VARCHAR(50),
    prix VARCHAR(50),
-   PRIMARY KEY(idCommune, libellé),
+   PRIMARY KEY(idCommune ,libellé),
    FOREIGN KEY(idCommune) REFERENCES Commune(idCommune),
    FOREIGN KEY(libellé) REFERENCES Service(libellé)
 )DEFAULT CHARSET=utf8;
 INSERT INTO Proposer VALUES
-(1, 'Service 1', '10.00'),
-(2, 'Service 1', '15.00'),
-(3, 'Service 3', '12.50'),
-(4, 'Service 2', '20.00'),
-(5, 'Service 5', '8.00'),
-(6, 'Service 4', '7.00'),
-(7, 'Service 2', '25.00'),
-(8, 'Service 4', '8.00'),
-(9, 'Service 1', '18.00'),
-(10, 'Service 3', '14.00'),
-(11, 'Service 3', '22.00'),
-(12, 'Service 4', '10.00'),
-(13, 'Service 4', '25.00'),
-(14, 'Service 4', '12.50'),
-(15, 'Service 4', '8.00');
-
+(1, 'Etat civil', '10.00'),
+(2, 'Etat civil', '15.00'),
+(1, 'Signalement', '12.50'),
+(4, 'Elections', '20.00'),
+(5, 'Scolaire', '8.00'),
+(6, 'Union civile', '7.00'),
+(7, 'Elections', '25.00'),
+(8, 'Union civile', '8.00'),
+(9, 'Etat civil', '18.00'),
+(10, 'Signalement', '14.00'),
+(11, 'Signalement', '22.00'),
+(12, 'Union civile', '10.00'),
+(13, 'Union civile', '25.00'),
+(14, 'Union civile', '12.50'),
+(12, 'Signalement', '12.00'),
+(11, 'Union civile','7.00');
 
 CREATE TABLE Union_civile(
    idDemande INT,
@@ -283,3 +288,4 @@ INSERT INTO Union_civile  VALUES
  (9, 'Mariage', '2024-06-12', 'Nathan Boucher', 'Manon Martel'),
 (10, 'PACS', '2024-10-22', 'Gabriel Leclerc', 'Anaïs Lavoie');
  
+
