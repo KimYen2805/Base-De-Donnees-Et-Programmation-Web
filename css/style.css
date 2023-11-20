@@ -1,23 +1,36 @@
 body {
-    background-color: white;
-    /* margin: 0;
-    padding: 0; */
+    font-family: Helvetica, sans-serif;
+   /* position:relative;*/
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+   /* background-color: #FFF0A5;*/
+
 }
 
 /* header, nav, main, footer {
     padding: 1em 0;
 } */
-
+header{
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+}
 #logo {
-    border: 1px solid yellow;
+   /* border: 1px solid yellow;*/
     height: 100%;
     width: auto;
     float: left;
+    
 }
 
 header {
-    border: 1px solid red;
-    /* background-color: #FF9900; */
+    /*border: 1px solid red;*/
+     background-color: #f1790f; 
     text-align: center;
     height: 10vh; 
 }
@@ -32,65 +45,65 @@ header {
 }
 
 nav {
-    border: 1px solid blue;
-	/* flex : 2;
-    background-color: #b59ff7;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-	margin-left: 2em;
-    line-height: 2em; */
+    padding: 2px 16px;
 }
-
-nav > ul {
-	padding-left: 0.5em;
+nav ul li a:hover{
+	text-decoration: none;
+    color: #B64926
 }
-
-/* TODO : centrer les boutons */
-
-nav a {
-    color: #0000FF;
-    /* text-decoration: underline; */
+nav ul li a {
+    padding: 1em; 
+    text-transform: uppercase;
+    /*font-weight: 300;*/
+    font-size:  1,5vw;
+    letter-spacing: -0,05em;
+    color :#468966;
+}
+nav ul li{
     display: inline-block;
+    height: 5px;
 }
-
-nav a:visited {
-    color: #0000FF;
-    text-decoration: none;
+nav ul{
+    clear:both; 
+    width:100%;
+    text-align: center;
+    padding:0;
+   
+}
+/* TODO : centrer les boutons */
+.pic{
+  position: relative;
+  width: 50%;
+  height: 100%;
+  float: right;
+  margin-left : 20px;
+}
+.pic img {
+    width: 100%;
+    height: 100% ;
+   object-fit: cover;
 }
 
 main {
-    border: 1px solid green;
-	/* flex : 10; */
-    background-color: #FFFFFF;
+  /*  border: 1px solid green;*/
     padding-left: 3em;
+    flex : 10;
+ padding-left: 3em;
+background-color: #E6FAEF; 
+text-align: justify;
+margin: 1em;
 }
 
+  .content {
+    margin-right: 20px; 
+  }
 footer {
-    border: 1px solid black;
-	/* display: flex; */
+  /*  border: 1px solid black;*/
+	display: flex; 
 	justify-content: space-around;
     /* background-color: #669933; */
 }
 
-.fond-jaune { /*TODO : voir ce que c'est */
+/*.fond-jaune {
 	background-color: yellow;
-}
-
-.tableau 
-{
-    border: 1px solid green;
-    overflow: auto;
-    height: auto;
-    max-height: 30vh;
-    display: inline-block;
-}
-
-table {
-    border: 1px solid black;
-}
-
-td {
-    border: 1px solid black;
-    margin: 0;
-}
-
+}*/
