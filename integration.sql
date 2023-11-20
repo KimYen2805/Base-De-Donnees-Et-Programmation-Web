@@ -1,7 +1,6 @@
-
-INSERT INTO Commune (codePostal, nom, coordonnées, codeINSEE_3, adresseMairie, codeINSEE_2)
-SELECT 
-CONVERT( code_postal, SIGNED INTEGER), 
+INSERT INTO Commune(codePostal, nom, coordonnées, codeINSEE_3, adresseMairie, codeINSEE_2)
+SELECT DISTINCT
+CONVERT(code_postal, SIGNED INTEGER), 
 nom_commune_complet, 
 CONCAT(latitude, ',', longitude) AS coordonnées, 
 CONVERT(code_commune_INSEE, SIGNED INTEGER) AS codeINSEE_3, 
