@@ -1,4 +1,3 @@
-
 CREATE TABLE Lieu(
    idLieu INT,
    nom VARCHAR(50),
