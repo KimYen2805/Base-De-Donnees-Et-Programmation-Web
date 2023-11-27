@@ -12,7 +12,7 @@
 ```
 Hôte : sftp://bdw.univ-lyon1.fr
 Identifiant : p2309122
-Mot de passe : *********
+Mot de passe : Strum18Fabric
 Port : 22
 ```
 
