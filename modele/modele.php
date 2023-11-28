@@ -109,62 +109,91 @@ function checkIfEmpty($data, $message) {
 	}
 	return false;
 }
+//fonction qui genere des services
+function genereRandomServices($connexion) {
+	$nbServices = rand(3, 5);
+	$requete = "SELECT libellé FROM Service";
+	$res = mysqli_query($connexion, $requete);
+	$services =[]; 
+	while ($row = mysqli_fetch_assoc($res))
+	 { $services[] = $row['libellé']; } 
+	$randomServices = [];
+	
+	for ($i = 0; $i < $nbServices; $i++) {
+	  $randomIndex = array_rand($services);
+	  $randomServices[] = $services[$randomIndex];
+	  unset($services[$randomIndex]);
+	}
+	
+	return $randomServices;
+  }
+// fonction qui genere les periodes d'essai
+function genererPeriodesEssai($connexion, $departement, $mois_max, $kilometres)
+{
+    $nbCommunes = rand(5, 20);
+    $durees = [3, 4, 6];
+    $totalDurees = 0;
+    $mois_max = intval($mois_max);
+	echo "<table border='1'>";
+	echo "<tr><th>Commune </th>
+			<th>Services </th>
+			<th>Durée </th></tr>";
+    for ($i = 0; $i < $nbCommunes; $i++) {
+        if (is_array($durees) && $totalDurees + $durees[$i % count($durees)] > $mois_max) {
+            echo "<strong><span style='font-size: 18px;'>Période d'essai trop longue</span></strong>";
+            break;
+        }
+		
+        // Select a random commune within the specified department
+        $queryFirstCommune = "SELECT nom AS nomE,
+                                     SUBSTRING_INDEX(coordonnées, ',', 1) AS latitudeE,
+                                     SUBSTRING_INDEX(coordonnées, ',', -1) AS longitudeE
+                              FROM Commune
+                              WHERE codeINSEE_2 = '$departement'
+                              ORDER BY RAND()
+                              LIMIT 1";
 
-// Insère une nouvelle série nommée $nomSerie
-// function insertSerie($connexion, $nomSerie) {
-// 	$nomSerie = mysqli_real_escape_string($connexion, $nomSerie); // au cas où $nomSerie provient d'un formulaire
-// 	$requete = "INSERT INTO Series VALUES ('". $nomSerie . "')";
-// 	$res = mysqli_query($connexion, $requete);
-// 	return $res;
-// }
+        $resultFirstCommune = mysqli_query($connexion, $queryFirstCommune);
 
-// // Insère une nouvelle critique
-// function insertCritique($connexion, $date, $pseudo, $texte, $nomSerie) {
-// 	$pseudo = mysqli_real_escape_string($connexion, $pseudo); 
-// 	$texte = mysqli_real_escape_string($connexion, $texte); 
-// 	$nomSerie = mysqli_real_escape_string($connexion, $nomSerie);
-// 	$requete = "INSERT INTO Critiques VALUES (NULL,'" . $date . "','".  $pseudo . "','" . $texte . "','" . $nomSerie . "')";
-// 	$res = mysqli_query($connexion, $requete);
-// 	return $res;
-// }
+        if ($resultFirstCommune && $rowFirstCommune = mysqli_fetch_assoc($resultFirstCommune)) {
+            $nomE = $rowFirstCommune['nomE'];
+			$latitudeE = $rowFirstCommune['latitudeE'];
+            $longitudeE = $rowFirstCommune['longitudeE'];
 
-// Retourne les informations sur la série nommée $nomSerie
-// function getSeriesByName($connexion, $nomSerie) {
-// 	$nomSerie = mysqli_real_escape_string($connexion, $nomSerie); // sécurisation de $nomSerie
-// 	$requete = "SELECT * FROM Series WHERE nomSerie = '". $nomSerie . "'";
-// 	$res = mysqli_query($connexion, $requete);
-// 	$series = mysqli_fetch_all($res, MYSQLI_ASSOC);
-// 	return $series;
-// }
+            // choisir une autre commune plus proche
+            $querySecondCommune = "SELECT nom,
+                                          SUBSTRING_INDEX(coordonnées, ',', 1) AS latitude,
+                                          SUBSTRING_INDEX(coordonnées, ',', -1) AS longitude
+                                   FROM Commune
+                                   WHERE ST_Distance_Sphere(
+                                       POINT($longitudeE, $latitudeE),
+                                       POINT(
+                                           CAST(SUBSTRING_INDEX(coordonnées, ',', -1) AS DECIMAL(9, 6)),
+                                           CAST(SUBSTRING_INDEX(coordonnées, ',', 1) AS DECIMAL(8, 6))
+                                       ) 
+                                   ) / 1000 <= $kilometres
+                                   ORDER BY RAND()
+                                   LIMIT 1";
 
-// TODO : à tester
-// function search($connexion, $table, $valeur) {
-// 	$valeur = mysqli_real_escape_string($connexion, $valeur); // au cas où $valeur provient d'un formulaire
-// 	if($table == 'Series')
-// 		$requete = 'SELECT * FROM Series WHERE nomSerie LIKE \'%'.$valeur.'%\';';
-// 	else  // $table == 'Actrices'
-// 		$requete = 'SELECT * FROM Actrices WHERE nom LIKE \'%'.$valeur.'%\' OR prenom LIKE \'%'.$valeur.'%\';';
-// 	$res = mysqli_query($connexion, $requete);
-// 	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
-// 	return $instances;
-// }
+            $resultSecondCommune = mysqli_query($connexion, $querySecondCommune);
+			if ($resultSecondCommune && $rowSecondCommune = mysqli_fetch_assoc($resultSecondCommune)) {
+                $nomSecondCommune = $rowSecondCommune['nom'];
 
-// // Prépare la requête qui retourne les épisodes
-// function prepareRequeteEpisodes($connexion) {
-// 	$requete = "SELECT titre FROM Episodes WHERE numero = ?";
-// 	$stmt = mysqli_prepare($connexion, $requete);
-// 	if($stmt == false) {
-// 		return null;
-// 	}
-// 	return $stmt;
-// }
+                $randomServices = genereRandomServices($connexion);
+                $duree = $durees[$i % count($durees)];
 
-// Retourne les instances d'épisodes numérotés $id avec une requête préparée // TODO : à tester
-// function getEpisodesPrepared($stmt, $numEpisode) {
-// 	mysqli_stmt_bind_param($stmt, "i", $numEpisode); // lier la variable $var au paramètre de la requête
-// 	mysqli_stmt_execute($stmt); // exécution de la requête
-// 	$episodes = mysqli_stmt_get_result($stmt);  // récupération des tuples résultats dans la variable $episodes
-// 	return $episodes;
-// }
+                // afficher les resultats
+		
+                echo "<tr>";
+                echo "<td>$nomSecondCommune</td>";
+                echo "<td>" . implode(",", $randomServices) . "</td>";
+                echo "<td>$duree mois</td>";
+                echo "</tr>";
+            }
+        }
+    }
+
+    echo "</table>";
+}
 
 ?>
