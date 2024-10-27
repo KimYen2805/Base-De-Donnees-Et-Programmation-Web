@@ -19,7 +19,6 @@ WHERE
     nom_region = "Auvergne-Rhône-Alpes"
 ON DUPLICATE KEY UPDATE nom = VALUES(nom), codeINSEE_1 = VALUES(codeINSEE_1);
 
-
 INSERT INTO Commune (codePostal, nom, coordonnées, codeINSEE_3, adresseMairie, codeINSEE_2)
 SELECT DISTINCT
     CONVERT(code_postal, SIGNED INTEGER) AS codePostal,
@@ -38,7 +37,3 @@ WHERE
         WHERE c.codePostal = CONVERT(d.code_postal, SIGNED INTEGER)
            OR c.codeINSEE_3 = CONVERT(d.code_commune_INSEE, SIGNED INTEGER)
     );
-
-
-
-

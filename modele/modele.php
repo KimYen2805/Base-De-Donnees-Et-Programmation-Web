@@ -35,7 +35,13 @@ function getInstances($connexion, $nomTable) {
 	return $instances;
 }
 
-// FONCTIONS PERSONNALISÉES
+// Retourne les instances d'une table de façon triée
+function getInstancesSorted($connexion, $nomTable, $attribut, $ordre) {
+	$requete = "SELECT * FROM $nomTable ORDER BY $attribut $ordre";
+	$res = mysqli_query($connexion, $requete);
+	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
+	return $instances;
+}
 
 // Retourne la liste de chaque enfant et de son école actuelle
 function getChildsAndSchool($connexion) {
@@ -47,7 +53,7 @@ function getChildsAndSchool($connexion) {
 
 // Retourne la liste des enfants avec le nom de la cantine où ils mangeront à la date précisée
 function getChildsAndCanteen($connexion, $date) {
-	$requete = "SELECT M.nom, M.prénom, E.nom_C cantine FROM `Manger` M NATURAL JOIN `Enfant` E WHERE dateC = '" . formatDate($date) . "'";
+	$requete = "SELECT M.nom, M.prénom, E.nom_C cantine FROM `Manger` M NATURAL JOIN `Enfant` E WHERE '" . formatDate($date) . "' BETWEEN début AND fin";
 	$res = mysqli_query($connexion, $requete);
 	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
 	return $instances;
@@ -78,7 +84,7 @@ function getTop3RequestedServices($connexion) {
 }
 
 // Top-3 des services les plus proposés (par les communes)
-function getTop3OfferedServices($connexion) { // TODO : voir à quoi correspond nb
+function getTop3OfferedServices($connexion) { 
 	$requete = "SELECT P.libellé,S.description, COUNT(P.idCommune) AS nbServices FROM Proposer P NATURAL JOIN  Service S WHERE P.libellé= S.libellé GROUP BY P.libellé ORDER BY nbServices DESC LIMIT 3";
 	$res = mysqli_query($connexion, $requete);
 	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -86,7 +92,7 @@ function getTop3OfferedServices($connexion) { // TODO : voir à quoi correspond 
 }
 
 // Top-3 des communes qui réalisent le plus d'unions.
-function getTop3Municipalities($connexion) { // TODO : revoir la requête
+function getTop3Municipalities($connexion) { 
 	$requete = "SELECT C.idCommune, C.nom commune, COUNT(UC.idDemande) AS nbUnions FROM Commune C JOIN Proposer P ON C.idCommune = P.idCommune JOIN Service S ON P.libellé = S.libellé JOIN Demande D ON S.libellé = D.libellé JOIN Union_civile UC ON D.idDemande = UC.idDemande GROUP BY C.idCommune, C.nom ORDER BY nbUnions DESC LIMIT 3 ";
 	$res = mysqli_query($connexion, $requete);
 	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -103,14 +109,67 @@ function formatDate($date) {
 
 // Vérifie si les données fournies sont vides
 function checkIfEmpty($data, $message) {
-	if ($data == null || count($data) == 0) {
+	if ($data == null || empty($data)) { 
 		echo($message);
 		return true;
 	}
 	return false;
 }
-//fonction qui genere des services
-function genereRandomServices($connexion) {
+
+// Retourne les informations sur le service spécifié
+function getServiceByName($connexion, $libelle) {
+	$libelle = mysqli_real_escape_string($connexion, $libelle);
+	$requete = "SELECT * FROM Service WHERE libellé = '$libelle'";
+	$res = mysqli_query($connexion, $requete);
+	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
+	return $instances;
+}
+
+// Retourne les services et les prix auxquels ils sont proposés par la commune spécifiée
+function getMunicipalServicesByID($connexion, $idCommune) {
+	$idCommune = mysqli_real_escape_string($connexion, $idCommune);
+	$requete = "SELECT * FROM Proposer WHERE idCommune = $idCommune";
+	$res = mysqli_query($connexion, $requete);
+	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
+	return $instances;
+}
+
+// Insère un nouveau service
+function insertService($connexion, $libelle, $description) {
+    $requete = "INSERT INTO Service VALUES (?, ?)";
+    if (!($stmt = mysqli_prepare($connexion, $requete))) {
+        return false;
+    }
+
+    mysqli_stmt_bind_param($stmt, 'ss', $libelle, $description);
+    $res = mysqli_stmt_execute($stmt);
+    return $res;
+}
+
+// Insère le service dans la commune spécifiée
+function insertProposer($connexion, $idCommune, $libelle, $prix, $debut, $fin) {
+    $requete = "INSERT INTO Proposer VALUES (?, ?, ?, ?, ?)";
+    if (!($stmt = mysqli_prepare($connexion, $requete))) {
+        return false;
+    }
+
+    mysqli_stmt_bind_param($stmt, 'issss', $idCommune, $libelle, $prix, $debut, $fin);
+    $res = mysqli_stmt_execute($stmt);
+    return $res;
+}
+
+
+// Récupère le département par son code INSEE
+function getDepartementByINSEE($connexion, $codeINSEE) {
+	$codeINSEE = mysqli_real_escape_string($connexion, $codeINSEE);
+	$requete = "SELECT nom FROM Département WHERE codeINSEE_2 = $codeINSEE";
+	$res = mysqli_query($connexion, $requete);
+	$instances = mysqli_fetch_all($res, MYSQLI_ASSOC);
+	return $instances;
+}
+
+// Génère des services
+function generateRandomServices($connexion) {
 	$nbServices = rand(3, 5);
 	$requete = "SELECT libellé FROM Service";
 	$res = mysqli_query($connexion, $requete);
@@ -127,24 +186,21 @@ function genereRandomServices($connexion) {
 	
 	return $randomServices;
   }
-// fonction qui genere les periodes d'essai
-function genererPeriodesEssai($connexion, $departement, $mois_max, $kilometres)
+
+// Génère les périodes d'essai
+function generateTrialPeriod($connexion, $departement, $mois_max, $kilometres)
 {
     $nbCommunes = rand(5, 20);
     $durees = [3, 4, 6];
     $totalDurees = 0;
     $mois_max = intval($mois_max);
-	echo "<table border='1'>";
-	echo "<tr><th>Commune </th>
-			<th>Services </th>
-			<th>Durée </th></tr>";
+	$periodes = [];
     for ($i = 0; $i < $nbCommunes; $i++) {
-        if (is_array($durees) && $totalDurees + $durees[$i % count($durees)] > $mois_max) {
-            echo "<strong><span style='font-size: 18px;'>Période d'essai trop longue</span></strong>";
-            break;
-        }
+		if ($mois_max > 0 && $totalDurees >= $mois_max){
+			break;
+		}
 		
-        // Select a random commune within the specified department
+        // choisir une commune
         $queryFirstCommune = "SELECT nom AS nomE,
                                      SUBSTRING_INDEX(coordonnées, ',', 1) AS latitudeE,
                                      SUBSTRING_INDEX(coordonnées, ',', -1) AS longitudeE
@@ -159,8 +215,7 @@ function genererPeriodesEssai($connexion, $departement, $mois_max, $kilometres)
             $nomE = $rowFirstCommune['nomE'];
 			$latitudeE = $rowFirstCommune['latitudeE'];
             $longitudeE = $rowFirstCommune['longitudeE'];
-
-            // choisir une autre commune plus proche
+				// choisir une autre commune plus prochesssss
             $querySecondCommune = "SELECT nom,
                                           SUBSTRING_INDEX(coordonnées, ',', 1) AS latitude,
                                           SUBSTRING_INDEX(coordonnées, ',', -1) AS longitude
@@ -179,21 +234,23 @@ function genererPeriodesEssai($connexion, $departement, $mois_max, $kilometres)
 			if ($resultSecondCommune && $rowSecondCommune = mysqli_fetch_assoc($resultSecondCommune)) {
                 $nomSecondCommune = $rowSecondCommune['nom'];
 
-                $randomServices = genereRandomServices($connexion);
+                $randomServices = generateRandomServices($connexion);
                 $duree = $durees[$i % count($durees)];
 
-                // afficher les resultats
-		
-                echo "<tr>";
-                echo "<td>$nomSecondCommune</td>";
-                echo "<td>" . implode(",", $randomServices) . "</td>";
-                echo "<td>$duree mois</td>";
-                echo "</tr>";
-            }
+				// Vérifie si la durée est inférieure au maximum
+				if ($mois_max > 0 && $totalDurees + $duree > $mois_max) {
+                    break;
+                }
+				$periodes []= [
+					'nomCommune' => $nomSecondCommune,
+					'services' => $randomServices,
+					'duree' => $duree,
+				];
+				$totalDurees += $duree;
+			}
         }
+        
     }
-
-    echo "</table>";
+	return $periodes;
 }
-
 ?>

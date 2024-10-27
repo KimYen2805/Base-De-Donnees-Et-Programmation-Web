@@ -13,36 +13,35 @@ $connexion = getConnexionBD(); // connexion à la BD
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-	<!-- le titre du document, qui apparait dans l'onglet du navigateur -->
-    <title><?= $nomSite ?></title>
-    <!-- lie le style CSS externe  -->
-    <link href="<?= $styleCSS ?>" rel="stylesheet" media="all" type="text/css">
-    <!-- ajoute une image favicon (dans l'onglet du navigateur) -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/sheep.png" />
-</head>
-<body>
-    <?php include($pathHeader); ?>
-    <div id="divCentral">
-		<?php include($pathMenu); ?>
-		
-		<main>
-		<?php
-		$controleur = $controleurAccueil; // par défaut, on charge la page d'accueil
-		$vue = $vueAccueil; // par défaut, on charge la page d'accueil
-		if(isset($_GET['page'])) {
-			$nomPage = $_GET['page'];
-			if(isset($routes[$nomPage])) { // si la page existe dans le tableau des routes, on la charge
-				$controleur = $routes[$nomPage]['controleur'];
-				$vue = $routes[$nomPage]['vue'];
-			}
-		}
-		include('controleurs/' . $controleur . '.php');
-		include('vues/' . $vue . '.php');
-		?>
-		</main>
-	</div>
-    <?php include($pathFooter); ?>
-</body>
+	<head>
+		<meta charset="utf-8" />
+		<!-- le titre du document, qui apparait dans l'onglet du navigateur -->
+		<title><?= $nomSite ?></title>
+		<!-- lie le style CSS externe  -->
+		<link href="<?= $styleCSS ?>" rel="stylesheet" media="all" type="text/css">
+		<!-- ajoute une image favicon (dans l'onglet du navigateur) -->
+		<link rel="shortcut icon" type="image/x-icon" href="img/logo-simple.png" />
+	</head>
+	
+	<body>
+		<?php include($pathHeader); ?>
+		<div id="divCentral">		
+			<main>
+				<?php
+					$controleur = $controleurAccueil; // par défaut, on charge la page d'accueil
+					$vue = $vueAccueil; // par défaut, on charge la page d'accueil
+					if(isset($_GET['page'])) {
+						$nomPage = $_GET['page'];
+						if(isset($routes[$nomPage])) { // si la page existe dans le tableau des routes, on la charge
+							$controleur = $routes[$nomPage]['controleur'];
+							$vue = $routes[$nomPage]['vue'];
+						}
+					}
+					include('controleurs/' . $controleur . '.php');
+					include('vues/' . $vue . '.php');
+				?>
+			</main>
+		</div>
+		<?php include($pathFooter); ?>
+	</body>
 </html>

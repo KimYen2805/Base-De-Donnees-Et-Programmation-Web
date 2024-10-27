@@ -1,8 +1,7 @@
 <header>
-    <a href="index.php">
-	    <img id="logo" src="img/logo.png"> <!--TODO : modifier le logo + lien ?-->
-    </a>
+    <div>
+        <a href="index.php"><img id="logo" src="img/logo.png"></img></a>
+    </div>
 
-	<h1><?= $nomSite ?></h1>
-	<!-- <strong><?= $baseline ?></strong> -->
+	<?php include($pathMenu); ?>
 </header>

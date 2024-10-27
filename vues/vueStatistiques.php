@@ -7,22 +7,26 @@
     <li>Communes : <?= $nbCommunes ?></li>
 </ul>
 
-<h3>Liste de chaque enfant et de son école actuelle</h3> <!--TODO : voir pour faire un tableau avec scroll-->
+<h3>Liste de chaque enfant et de son école actuelle</h3>
 
 <div class="tableau">
     <table>
-        <tr>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>École</th>
-        </tr>
-        <?php foreach($listeEnfantsEcole as $enfant) { ?>
+        <thead>
             <tr>
-                <td><?= strtoupper($enfant['nom']) ?></td>
-                <td><?= $enfant['prénom'] ?></td>
-                <td><?= $enfant['école'] ?></td>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>École</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach($listeEnfantsEcole as $enfant) { ?>
+                <tr>
+                    <td><?= strtoupper($enfant['nom']) ?></td>
+                    <td><?= $enfant['prénom'] ?></td>
+                    <td><?= $enfant['école'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
@@ -31,19 +35,22 @@
 
 <div class="tableau">
     <table>
-        <tr>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Cantine</th>
-        </tr>
-
-        <?php foreach($listeEnfantsCantine as $enfant) { ?>
+        <thead>
             <tr>
-                <td><?= strtoupper($enfant['nom']) ?></td>
-                <td><?= $enfant['prénom'] ?></td>
-                <td><?= $enfant['cantine'] ?></td>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Cantine</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach($listeEnfantsCantine as $enfant) { ?>
+                <tr>
+                    <td><?= strtoupper($enfant['nom']) ?></td>
+                    <td><?= $enfant['prénom'] ?></td>
+                    <td><?= $enfant['cantine'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
@@ -52,19 +59,22 @@
 
 <div class="tableau">
     <table>
-        <tr>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>École</th>
-        </tr>
-        
-        <?php foreach($listeHomonymesEcole as $enfant) { ?>
+        <thead>
             <tr>
-                <td><?= strtoupper($enfant['nom']) ?></td>
-                <td><?= $enfant['prénom'] ?></td>
-                <td><?= $enfant['école'] ?></td>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>École</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach($listeHomonymesEcole as $enfant) { ?>
+                <tr>
+                    <td><?= strtoupper($enfant['nom']) ?></td>
+                    <td><?= $enfant['prénom'] ?></td>
+                    <td><?= $enfant['école'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
@@ -73,19 +83,22 @@
 
 <div class="tableau">
     <table>
-        <tr>
-            <th>Code INSEE</th>
-            <th>Département</th>
-            <th>Nombre de communes<th>
-        </tr>
-
-        <?php foreach($topDepartements as $department) { ?>
+        <thead>
             <tr>
-                <td><?= $department['codeINSEE'] ?></td>
-                <td><?= $department['nomDépartement'] ?></td>
-                <td><?= $department['nbCommunes'] ?></td>
+                <th>Code INSEE</th>
+                <th>Département</th>
+                <th>Nombre de communes</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach($topDepartements as $department) { ?>
+                <tr>
+                    <td><?= $department['codeINSEE'] ?></td>
+                    <td><?= $department['nomDépartement'] ?></td>
+                    <td><?= $department['nbCommunes'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
@@ -94,19 +107,22 @@
 
 <div class="tableau">
     <table>
-        <tr>
-            <th>Libellé</th>
-            <th>Description</th>
-            <th>Nombre de demandes<th>
-        </tr>
-
-        <?php foreach($topRequestedServices as $service) { ?>
+        <thead>
             <tr>
-                <td><?= $service['libellé'] ?></td>
-                <td><?= $service['description'] ?></td>
-                <td><?= $service['nbDemandes'] ?></td>
+                <th>Libellé</th>
+                <th>Description</th>
+                <th>Nombre de demandes</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach($topRequestedServices as $service) { ?>
+                <tr>
+                    <td><?= $service['libellé'] ?></td>
+                    <td><?= $service['description'] ?></td>
+                    <td><?= $service['nbDemandes'] ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
@@ -115,19 +131,22 @@
 
 <div class="tableau">
     <table>
-        <tr>
-            <th>Libellé</th>
-            <th>Description</th>
-            <th>Nombre de propositions<th>
-        </tr>
-
-        <?php foreach($topOfferedServices as $service) { ?>
+        <thead>
             <tr>
-                <td><?= $service['libellé'] ?></td>
-                <td><?= $service['description'] ?></td>
-                <td><?= $service['nbServices'] ?></td> <!--TODO : verif-->
+                <th>Libellé</th>
+                <th>Description</th>
+                <th>Nombre de propositions</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach($topOfferedServices as $service) { ?>
+                <tr>
+                    <td><?= $service['libellé'] ?></td>
+                    <td><?= $service['description'] ?></td>
+                    <td><?= $service['nbServices'] ?></td> 
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>
 
@@ -136,18 +155,21 @@
 
 <div class="tableau">
     <table>
-        <tr>
-            <th>Identifiant</th>
-            <th>Commune</th>
-            <th>Nombre d'unions<th>
-        </tr>
-
-        <?php foreach($topMunicipalities as $municipality) { ?>
+        <thead>
             <tr>
-                <td><?= $municipality['idCommune'] ?></td>
-                <td><?= $municipality['commune'] ?></td>
-                <td><?= $municipality['nbUnions'] ?></td> <!--TODO : verif-->
+                <th>Identifiant</th>
+                <th>Commune</th>
+                <th>Nombre d'unions</th>
             </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
+            <?php foreach($topMunicipalities as $municipality) { ?>
+                <tr>
+                    <td><?= $municipality['idCommune'] ?></td>
+                    <td><?= $municipality['commune'] ?></td>
+                    <td><?= $municipality['nbUnions'] ?></td> 
+                </tr>
+            <?php } ?>
+        </tbody>
     </table>
 </div>

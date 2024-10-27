@@ -1,109 +1,271 @@
+/* Importation de la police */
+@import url('https://fonts.googleapis.com/css2?family=Lato');
+
 body {
-    font-family: Helvetica, sans-serif;
-   /* position:relative;*/
-    text-align: center;
-    -webkit-font-smoothing: antialiased;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #F3F6F6;
     margin: 0;
-   /* background-color: #FFF0A5;*/
-
+    min-height: 100%;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    color: black;
+    font-weight: 400;
+    line-height: normal;
 }
 
-/* header, nav, main, footer {
-    padding: 1em 0;
-} */
-header{
-  font-size: 30px;
-  color: white;
-  text-align: center;
-  box-sizing: border-box;
-}
-#logo {
-   /* border: 1px solid yellow;*/
-    height: 100%;
-    width: auto;
-    float: left;
-    
+/* - - Textuel - - */
+
+h1, h2, h3, h4 {
+    font-weight: normal;
 }
 
+h1 {
+    color: black;
+    font-size: 45px; 
+}
+
+h2 {
+    color: #407bff;
+    font-size: 30px;
+}
+h3 {
+    color: #9197A2;
+    font-size: 20px; 
+}
+
+h4 {
+    color: black;
+    font-size: 17px; 
+}
+
+p {
+    color: #9197A2;
+    font-size: 14px; 
+}
+
+#color-blue {
+    color: #407bff;
+}
+
+.button {
+    transition: color 0.3s ease; /* Transition pendant 0.3s */
+}
+
+.button:hover {
+    color: #9fbcff;
+}
+
+a, .box {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+/* - - - - - */
+
+
+/* - - Élements statiques - - */
 header {
-    /*border: 1px solid red;*/
-     background-color: #f1790f; 
-    text-align: center;
-    height: 10vh; 
-}
-
-#divCentral {
-    /* display: flex; */
-	justify-content: space-between;
-	align-items: stretch;
-    margin: auto;
-	box-sizing: border-box;
-	height: 100%;
+    background-color: #3d62e4;;
+    height: 7vh; 
+    display: flex;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 5vh;
 }
 
 nav {
-    padding: 2px 16px;
-}
-nav ul li a:hover{
-	text-decoration: none;
-    color: #B64926
-}
-nav ul li a {
-    padding: 1em; 
-    text-transform: uppercase;
-    /*font-weight: 300;*/
-    font-size:  1,5vw;
-    letter-spacing: -0,05em;
-    color :#468966;
-}
-nav ul li{
-    display: inline-block;
-    height: 5px;
-}
-nav ul{
-    clear:both; 
-    width:100%;
-    text-align: center;
-    padding:0;
-   
-}
-/* TODO : centrer les boutons */
-.pic{
-  position: relative;
-  width: 50%;
-  height: 100%;
-  float: right;
-  margin-left : 20px;
-}
-.pic img {
-    width: 100%;
-    height: 100% ;
-   object-fit: cover;
+    width: 100vw;
+    float: right;
+    flex: 2;
+    display: flex;
+    align-items: center;
 }
 
-main {
-  /*  border: 1px solid green;*/
-    padding-left: 3em;
-    flex : 10;
- padding-left: 3em;
-background-color: #E6FAEF; 
-text-align: justify;
-margin: 1em;
+nav a {
+    margin: auto;
+    color: white;
 }
 
-  .content {
-    margin-right: 20px; 
-  }
 footer {
-  /*  border: 1px solid black;*/
-	display: flex; 
-	justify-content: space-around;
-    /* background-color: #669933; */
+    text-align: center;
+    height: 5vh;
+    flex: 1;
+    margin-top: 5vh;
 }
 
-/*.fond-jaune {
-	background-color: yellow;
-}*/
+footer a {
+    color: black;
+}
+
+/* - - - - - */
+
+
+/* - - Contenu - - */
+main {
+    width: 75%;
+    min-height: 83vh;
+    margin: auto;
+    padding: 0 3vw;
+}
+
+#logo {
+    height: 100%;
+    width: auto;
+    float: left;
+    flex: 1;
+}
+
+#ville {
+    height: 95%;
+    width: auto;
+    float: right;
+}
+
+ul {
+    padding-bottom: 2vh;
+}
+
+#entete {
+    height: 50vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%; 
+}
+
+.box-content {
+    width: 100%; 
+    display: flex;
+    justify-content: center;
+    margin: 5vh 0 0 0;
+}
+
+.box {
+    border-radius: 15px;
+    background-color: #FAF9F9;
+    flex: 1;
+    margin: 0 2%; 
+    box-shadow: -3px 3px 9.7px 0px rgba(0, 0, 0, 0.25);
+    padding: 1%; 
+    text-align: center; 
+    max-width: 300px; 
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-5px); /* déplace légèrement la box */
+    background-color: #9fbcff; 
+}
+
+.box:hover p {
+    color: white;
+}
+
+.box p {
+    transition: color 0.3s ease; /* Transition pendant 0.3s */
+}
+
+.icone {
+    height: 50px; 
+    width: auto;
+}
+
+.box h4 {
+    margin: 1%;
+}
+/* - - - - - */
+
+
+/* - - Tableaux - - */
+.tableau {
+    display: inline-block;
+    min-width: 30vw;
+    max-width: 75vw;
+    max-height: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 2vh;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #cccccc;
+    width: 100%;
+    box-shadow: -2px 2px 8.7px 0px rgba(0, 0, 0, 0.25);
+}
+
+tbody {
+    font-size: 0.9em; 
+    max-width: 100%; 
+    border-radius: 10px;
+}
+
+td, th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 10px 18px; 
+}
+
+th {
+    background-color: #faf9f9; 
+    color: #333333;
+}
+
+td {
+    background-color: white;
+}
+
+/* - - - - - */
+
+
+/* - - Formulaire - - */
+label { 
+    display: block;
+    margin-bottom: 5px;
+}
+
+.formulaire {
+    max-width: 100%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    background-color: #faf9f9;
+    margin-bottom: 5vh;
+}
+
+.label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    color: black;
+    font-weight: 400;
+    line-height: normal;
+}
+
+input[type="text"], textarea, select, input[type="number"], input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+input[type="submit"] {
+    background-color: #3C61E4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 2vh;
+}
+
+.message {
+    color: #888888;
+}
+
+/* - - - - - */
